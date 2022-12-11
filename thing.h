@@ -10,17 +10,17 @@
             float price;
             unsigned int amount;
         public:
-            Thing(string, float, unsigned int);
+            Thing(string, float, unsigned int) throw (invalid_argument);
             ~Thing();
 
             string getName() const;
-            void setName(string);
+            void setName(string) throw (invalid_argument);
 
             float getPrice() const;
-            void setPrice(float);
+            void setPrice(float) throw (invalid_argument);
 
             unsigned int getAmount() const;
-            void setAmount(unsigned int);
+            void setAmount(unsigned int) throw (invalid_argument);
 
             string toString();
     };
