@@ -17,6 +17,9 @@ static inline void rtrim(string &s) {
         return !isspace(ch);
     }).base(), s.end());
 }
+#define MAXIMUM_NAME_SIZE 50
+#define MINIMUM_PRICE 0
+#define MINIMUM_AMOUNT 1
 
 // trim from both ends (in place)
 static inline void trim(string &s) {
@@ -38,6 +41,8 @@ void Thing::setName(string name) {
     trim(name);
     if (name.empty())
         throw invalid_argument("Empty name");
+    if (name.size() > MAXIMUM_NAME_SIZE)
+        throw invalid_argument("Name too big");
 
     this -> name = name;
 }
@@ -47,7 +52,7 @@ float Thing::getPrice() const {
 }
 
 void Thing::setPrice(float price) {
-    if (price < 0)
+    if (price < MINIMUM_PRICE)
         throw invalid_argument("Price less than zero");
 
     this -> price = price;
@@ -58,6 +63,8 @@ unsigned int Thing::getAmount() const {
 }
 
 void Thing::setAmount(unsigned int amount) {
+    if (amount < MINIMUM_AMOUNT)
+        throw invalid_argument("Amount less than minimum");
     this -> amount = amount;
 }
 
