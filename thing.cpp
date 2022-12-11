@@ -1,33 +1,17 @@
-#include "thing.h"
 #include <string>
 #include <iostream>
 #include <exception>
-using namespace std;
 
-// trim from start (in place)
-static inline void ltrim(string &s) {
-    s.erase(s.begin(), find_if(s.begin(), s.end(), [](unsigned char ch) {
-        return !isspace(ch);
-    }));
-}
+#include "thing.h"
+#include "stringManipulation.cpp"
 
-// trim from end (in place)
-static inline void rtrim(string &s) {
-    s.erase(find_if(s.rbegin(), s.rend(), [](unsigned char ch) {
-        return !isspace(ch);
-    }).base(), s.end());
-}
 #define MAXIMUM_NAME_SIZE 50
 #define MINIMUM_PRICE 0
 #define MINIMUM_AMOUNT 1
 
-// trim from both ends (in place)
-static inline void trim(string &s) {
-    rtrim(s);
-    ltrim(s);
-}
+using namespace std;
 
-Thing::Thing(std::string name, float price, unsigned int amount) {
+Thing::Thing(string name, float price, unsigned int amount) throw (invalid_argument) {
     setName(name);
     setPrice(price);
     setAmount(amount);
