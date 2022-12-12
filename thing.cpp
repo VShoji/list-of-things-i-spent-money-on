@@ -1,4 +1,6 @@
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include <iostream>
 #include <exception>
 
@@ -57,5 +59,7 @@ void Thing::setAmount(unsigned int amount) {
 }
 
 string Thing::toString() {
-    return "{ Name: \"" + getName() +"\" Price: " + to_string(getPrice()) + " Amount: " + to_string(getAmount()) + " }";
+    stringstream ss;
+    ss << fixed << setprecision(2) << getPrice();
+    return "{ Name: \"" + getName() +"\" Price: " + ss.str() + " Amount: " + to_string(getAmount()) + " }";
 }
