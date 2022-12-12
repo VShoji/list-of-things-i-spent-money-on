@@ -4,8 +4,10 @@
 
 #include "thingBinaryFile.h"
 #include "thing.h"
+#include "stringManipulator.h"
 
 #define DEFAULT_PATH "./things.dat"
+#define NAME_SIZE 50
 
 using namespace std;
 
