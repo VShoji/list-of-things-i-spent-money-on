@@ -202,6 +202,40 @@ void addThing() {
         things.push_back(Thing(name, price, amount));
 }
 
+void removeThing() {
+    unsigned long int length = things.size();
+    for (;;) {
+        clear();
+
+        cout << "x - Cancel" << endl
+             << "Thing to remove: ";
+        string aux = readLine();
+
+        if (aux == "x")
+            break;
+
+        unsigned long index;
+
+        try {
+            index = stoul(aux);
+        }
+        catch (invalid_argument e) {
+            cout << "Enter a valid index" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (index >= length) {
+            cout << "Index out of range" << endl;
+            requireEnter();
+            continue;
+        }
+
+        things.erase(things.begin() + index);
+        break;
+    }
+}
+
 
 }
 
