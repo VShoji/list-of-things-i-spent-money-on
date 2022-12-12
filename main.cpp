@@ -86,6 +86,17 @@ void loadFile(string path = DEFAULT_PATH) {
 }
 
 void listThings() {
+    clear();
+    if (things.empty())
+        cout << "List is empty" << endl;
+
+    int counter = 0;
+    for (Thing& thing : things)
+        cout << to_string(counter++) << ": " << thing.toString() << endl;
+
+    requireEnter();
+}
+
 
 }
 
