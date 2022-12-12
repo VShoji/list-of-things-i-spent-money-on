@@ -378,16 +378,44 @@ void editThing() {
 
 void showOperations() {
     for (;;) {
+        clear();
         cout << "l - List things" << endl <<
                 "a - Add a new thing" << endl <<
                 "r - Remove a thing" << endl <<
                 "e - Edit a thing" << endl <<
+                "x - Exit program" << endl <<
                 "Selected option: ";
         
         string option = readLine();
 
-        if (option == "l")
+        if (option == "l") {
             listThings();
+            continue;
+        }
+
+        if (option == "a") {
+            addThing();
+            continue;
+        }
+
+        if (option == "r") {
+            removeThing();
+            continue;
+        }
+
+        if (option == "e") {
+            editThing();
+            continue;
+        }
+
+        if (option == "x") {
+            file.save(things);
+            clear();
+            break;
+        }
+
+        cout << endl << "Invalid option" << endl;
+        requireEnter();
     }
 }
 
