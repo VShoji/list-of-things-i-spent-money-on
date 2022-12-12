@@ -67,11 +67,8 @@ void showFileNotFoundScreen() {
             break;
         }
 
-        cout << endl << 
-        "Invalid option" << endl <<
-        "Press enter to continue...";
-        
-        cin.ignore();
+        cout << endl << "Invalid option" << endl;
+        requireEnter();
         clear();
     }
 
