@@ -1,16 +1,17 @@
 #ifndef THINGBINARYFILE
-    #define THINGBINARYFILE
-
     #include <string>
     #include <vector>
+
     #include "thing.h"
 
     using namespace std;
 
+    #define THINGBINARYFILE
     class ThingBinaryFile {
         private:
             string path;
         public:
+            ThingBinaryFile();
             ThingBinaryFile(string);
             ~ThingBinaryFile();
 

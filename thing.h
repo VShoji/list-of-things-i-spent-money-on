@@ -1,17 +1,18 @@
 #ifndef THING
-    #define THING
     #include <string>
     #include <iostream>
     using namespace std;
-    
+
+    #define THING
     class Thing {
         private:
             string name;
             float price;
             unsigned int amount;
         public:
+            Thing();
             Thing(string, float, unsigned int) throw (invalid_argument);
-            ~Thing();
+            // ~Thing();
 
             string getName() const;
             void setName(string) throw (invalid_argument);

@@ -6,7 +6,7 @@
 #include <sstream>
 
 #include "thingBinaryFile.h"
-#include "stringManipulation.cpp"
+#include "thing.h"
 
 #define NAME_SIZE 51
 #define PRICE_SIZE sizeof(float)
@@ -14,8 +14,16 @@
 
 using namespace std;
 
+ThingBinaryFile::ThingBinaryFile() {
+
+}
+
 ThingBinaryFile::ThingBinaryFile(string path) {
     this -> path = path;
+}
+
+ThingBinaryFile::~ThingBinaryFile() {
+
 }
 
 bool ThingBinaryFile::exists() const {
@@ -37,6 +45,8 @@ vector<Thing> ThingBinaryFile::load() const {
 
         unsigned int amount;
         file.get(reinterpret_cast<char*>(&amount), AMOUNT_SIZE);
+
+        cout << "a";
 
         ret.push_back(Thing(string(name), price, amount));
     }
@@ -60,6 +70,10 @@ void ThingBinaryFile::save(vector<Thing> things) {
         unsigned int amount = thing.getAmount();
         file.write(reinterpret_cast<char*>(&amount), AMOUNT_SIZE);
     }
+}
+
+void ThingBinaryFile::create() {
+    ofstream create(path);
 }
 
 string ThingBinaryFile::getPath() const {
