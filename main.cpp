@@ -236,7 +236,144 @@ void removeThing() {
     }
 }
 
+void editThing() {
+    unsigned long int length = things.size();
+    bool cancel = false;
+    unsigned long index;
 
+    for (;;) {
+        clear();
+
+        cout << "x - Cancel" << endl
+             << "Thing to edit: ";
+        string aux = readLine();
+
+        if (aux == "x")
+            break;
+
+
+        try {
+            index = stoul(aux);
+        }
+        catch (invalid_argument e) {
+            cout << "Enter a valid index" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (index >= length) {
+            cout << "Index out of range" << endl;
+            requireEnter();
+            continue;
+        }
+
+        break;
+    }
+    
+    string name;
+    for (;;) {
+        if (cancel)
+            break;
+
+        clear();
+
+        cout << "x - Cancel" << endl 
+             << "Name: ";
+        getline(cin, name);
+        StringManipulator::trim(name);
+
+        if (name == "x") {
+            cancel = true;
+            break;
+        }
+
+        if (name.empty()) {
+            cout << "Enter a valid name" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (name.size() > NAME_SIZE) {
+            cout << "Name too large" << endl;
+            requireEnter();
+            continue;
+        }
+        
+        break;
+    }
+
+    float price;
+    for (;;) {
+        if (cancel)
+            break;
+
+        clear();
+
+        string aux;
+        cout << "x - Cancel" << endl 
+             << "Price: ";
+        aux = readLine();
+
+        if (aux == "x") {
+            cancel = true;
+            break;
+        }
+
+        try {
+            price = stof(aux);
+        }
+        catch (invalid_argument e) {
+            cout << "Enter a valid price" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (price < 0) {
+            cout << "Price cannot be negative" << endl;
+            requireEnter();
+            continue;
+        }
+        
+        break;
+    }
+
+    unsigned int amount;
+    for (;;) {
+        if (cancel)
+            break;
+
+        clear();
+
+        string aux;
+        cout << "x - Cancel" << endl 
+             << "Amount: ";
+        aux = readLine();
+
+        if (aux == "x") {
+            cancel = true;
+            break;
+        }
+
+        try {
+            amount = stoul(aux);
+        }
+        catch (invalid_argument e) {
+            cout << "Enter a valid amount" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (amount < 1) {
+            cout << "Price cannot be zero" << endl;
+            requireEnter();
+            continue;
+        }
+
+        break;
+    }
+
+    if (!cancel)
+        things[index] = Thing(name, price, amount);
 }
 
 void showOperations() {
