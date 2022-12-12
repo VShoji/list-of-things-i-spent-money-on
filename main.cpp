@@ -31,6 +31,11 @@ string readLine() {
     return ret;
 }
 
+void requireEnter() {
+    cout << "Press enter to continue";
+    cin.ignore();
+}
+
 void showFileNotFoundScreen() {
     for (;;) {
         cout << 
