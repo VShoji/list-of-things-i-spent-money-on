@@ -42,7 +42,7 @@ void showFileNotFoundScreen() {
         "File not found." << endl << 
         "c - Create file at \"" + file.getPath() + "\"" << endl <<
         "f - Find file" << endl <<
-        "e - Exit" << endl <<
+        "x - Exit program" << endl <<
         "Selected option: ";
 
         string option = readLine();
@@ -62,7 +62,7 @@ void showFileNotFoundScreen() {
 
             break;
         }
-        if (option == "e") {
+        if (option == "x") {
             exit(0);
             break;
         }
