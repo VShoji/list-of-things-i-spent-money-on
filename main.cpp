@@ -409,7 +409,6 @@ void showOperations() {
         }
 
         if (option == "x") {
-            file.save(things);
             clear();
             break;
         }
@@ -419,9 +418,17 @@ void showOperations() {
     }
 }
 
+void saveFile() {
+    cout << "Saving file..." << endl
+         << "Please wait";
+
+    file.save(things);
+    clear();
+}
 
 int main(int argc, char *argv[]) {
     clear();
     loadFile();
     showOperations();
+    saveFile();
 }
