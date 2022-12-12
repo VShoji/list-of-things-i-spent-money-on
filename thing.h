@@ -6,10 +6,14 @@
     #define THING
     class Thing {
         private:
+            unsigned int id;
             string name;
             float price;
             unsigned int amount;
         public:
+            static const int NAME_SIZE;
+            static const int TOTAL_SIZE;
+
             Thing();
             Thing(string, float, unsigned int) throw (invalid_argument);
             // ~Thing();

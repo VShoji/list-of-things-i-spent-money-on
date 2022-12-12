@@ -11,7 +11,6 @@
 
 using namespace std;
 
-vector<Thing> things;
 ThingBinaryFile file;
 
 void clear() {
@@ -77,21 +76,22 @@ void showFileNotFoundScreen() {
     clear();
 }
 
-void loadFile(string path = DEFAULT_PATH) {
+void checkFile(string path = DEFAULT_PATH) {
     file = ThingBinaryFile(path);
     if (!file.exists()) 
         showFileNotFoundScreen();
-    
-    things = file.load();
 }
 
 void listThings() {
     clear();
-    if (things.empty())
+    if (file.empty()) {
         cout << "List is empty" << endl;
+        requireEnter();
+        return;
+    }
 
     int counter = 0;
-    for (Thing& thing : things)
+    for (Thing& thing : file.load())
         cout << to_string(counter++) << ": " << thing.toString() << endl;
 
     requireEnter();
@@ -199,11 +199,12 @@ void addThing() {
     }
 
     if (!cancel)
-        things.push_back(Thing(name, price, amount));
+        //things.push_back(Thing(name, price, amount));
+        file.append(Thing(name, price, amount));
 }
 
 void removeThing() {
-    unsigned long int length = things.size();
+    unsigned long int length = file.size();
     for (;;) {
         clear();
 
@@ -231,13 +232,13 @@ void removeThing() {
             continue;
         }
 
-        things.erase(things.begin() + index);
+        file.erase(index);
         break;
     }
 }
 
 void editThing() {
-    unsigned long int length = things.size();
+    unsigned long int length = file.size();
     bool cancel = false;
     unsigned long index;
 
@@ -373,7 +374,7 @@ void editThing() {
     }
 
     if (!cancel)
-        things[index] = Thing(name, price, amount);
+        file.put(Thing(name, price, amount), index);
 }
 
 void showOperations() {
@@ -417,18 +418,8 @@ void showOperations() {
         requireEnter();
     }
 }
-
-void saveFile() {
-    cout << "Saving file..." << endl
-         << "Please wait";
-
-    file.save(things);
-    clear();
-}
-
 int main(int argc, char *argv[]) {
     clear();
-    loadFile();
+    checkFile();
     showOperations();
-    saveFile();
 }

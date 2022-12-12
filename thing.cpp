@@ -7,11 +7,13 @@
 #include "thing.h"
 #include "stringManipulator.cpp"
 
-#define MAXIMUM_NAME_SIZE 50
 #define MINIMUM_PRICE 0
 #define MINIMUM_AMOUNT 1
 
 using namespace std;
+
+const int Thing::NAME_SIZE = 50;
+const int Thing::TOTAL_SIZE = NAME_SIZE + sizeof(float) + sizeof(unsigned int);
 
 Thing::Thing() {
     
@@ -31,7 +33,7 @@ void Thing::setName(string name) {
     StringManipulator::trim(name);
     if (name.empty())
         throw invalid_argument("Empty name");
-    if (name.size() > MAXIMUM_NAME_SIZE)
+    if (name.size() > NAME_SIZE)
         throw invalid_argument("Name too big");
 
     this -> name = name;

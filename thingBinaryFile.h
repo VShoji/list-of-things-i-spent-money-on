@@ -10,6 +10,9 @@
     class ThingBinaryFile {
         private:
             string path;
+            Thing readThing();
+            void writeThing(Thing, ofstream);
+
         public:
             ThingBinaryFile();
             ThingBinaryFile(string);
@@ -18,13 +21,17 @@
             void save(vector<Thing>);
             vector<Thing> load() const;
 
-            Thing peek(long int) const;
-            void put(Thing, long int);
+            Thing peek(unsigned int) const;
+            void put(Thing, unsigned int) throw (exception);
+            void erase(unsigned int);
+            void insert(Thing);
 
             bool exists() const;
             void create();
 
             string getPath() const;
+            bool empty() const;
+            unsigned int size() const;
     };
 
 #endif
