@@ -97,6 +97,111 @@ void listThings() {
     requireEnter();
 }
 
+void addThing() {
+    bool cancel = false;
+    string name;
+    for (;;) {
+        clear();
+
+        cout << "x - Cancel" << endl 
+             << "Name: ";
+        getline(cin, name);
+        StringManipulator::trim(name);
+
+        if (name == "x") {
+            cancel = true;
+            break;
+        }
+
+        if (name.empty()) {
+            cout << "Enter a valid name" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (name.size() > NAME_SIZE) {
+            cout << "Name too large" << endl;
+            requireEnter();
+            continue;
+        }
+        
+        break;
+    }
+
+    float price;
+    for (;;) {
+        if (cancel)
+            break;
+
+        clear();
+
+        string aux;
+        cout << "x - Cancel" << endl 
+             << "Price: ";
+        aux = readLine();
+
+        if (aux == "x") {
+            cancel = true;
+            break;
+        }
+
+        try {
+            price = stof(aux);
+        }
+        catch (invalid_argument e) {
+            cout << "Enter a valid price" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (price < 0) {
+            cout << "Price cannot be negative" << endl;
+            requireEnter();
+            continue;
+        }
+        
+        break;
+    }
+
+    unsigned int amount;
+    for (;;) {
+        if (cancel)
+            break;
+
+        clear();
+
+        string aux;
+        cout << "x - Cancel" << endl 
+             << "Amount: ";
+        aux = readLine();
+
+        if (aux == "x") {
+            cancel = true;
+            break;
+        }
+
+        try {
+            amount = stoul(aux);
+        }
+        catch (invalid_argument e) {
+            cout << "Enter a valid amount" << endl;
+            requireEnter();
+            continue;
+        }
+
+        if (amount < 1) {
+            cout << "Price cannot be zero" << endl;
+            requireEnter();
+            continue;
+        }
+
+        break;
+    }
+
+    if (!cancel)
+        things.push_back(Thing(name, price, amount));
+}
+
 
 }
 
