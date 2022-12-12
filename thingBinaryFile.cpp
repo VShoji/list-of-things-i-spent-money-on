@@ -36,32 +36,35 @@ vector<Thing> ThingBinaryFile::load() const {
     ifstream file(this -> path, ios::binary);
     vector<Thing> ret;
 
-    while (!file.eof()) {
+    file.seekg(0, ios::end);
+    unsigned long int length = file.tellg();
+    
+    file.seekg(file.beg);
+    while (file.tellg() < length) {
         char name[NAME_SIZE];
-        file.get(name, NAME_SIZE);
+        file.read(name, NAME_SIZE);
 
         float price;
-        file.get(reinterpret_cast<char*>(&price), PRICE_SIZE);
+        file.read(reinterpret_cast<char*>(&price), PRICE_SIZE);
 
         unsigned int amount;
-        file.get(reinterpret_cast<char*>(&amount), AMOUNT_SIZE);
+        file.read(reinterpret_cast<char*>(&amount), AMOUNT_SIZE);
 
-        cout << "a";
-
-        ret.push_back(Thing(string(name), price, amount));
+        ret.push_back(Thing(string(name, NAME_SIZE - 1), price, amount));
     }
-    
+        
     return ret;
 }
 
 void ThingBinaryFile::save(vector<Thing> things) {
-    ofstream file(this -> path, ios::binary);
+    ofstream file(this -> path, ios::binary | ios::trunc);
 
     for (Thing& thing : things) {
         string name = thing.getName();
         ostringstream oss;
-        oss << std::setw (NAME_SIZE) << name << std::endl;
+        oss << std::setw (NAME_SIZE - 1) << name << std::endl;
         name = oss.str();
+
         file.write(name.c_str(), NAME_SIZE);
 
         float price = thing.getPrice();
